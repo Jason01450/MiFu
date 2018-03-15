@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>MiFu.Core</RootNamespace>
+    <AssemblyName>MiFu.Core</AssemblyName>
+    <Product>MiFu Microservice Framework</Product>
+    <Copyright>Copyright © 2018 Jason W. Weber</Copyright>
+    <Description>Host microservices in Azure (App Services, Functions) using HTTP and Service Bus for message transport.</Description>
+    <Version>0.5.0-beta</Version>
+    <Authors>Jason W. Weber</Authors>
+    <Company />
+    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <RepositoryUrl></RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Jason01450/MiFu</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+  </ItemGroup>
+
+</Project>
