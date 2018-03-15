@@ -33,7 +33,7 @@ namespace MiFu.Chassis.AzFunc.Test
             var parser = new t.JsonMessageParser();
             var registry = new t.MiFuRegistry();
             registry.Register("service proxy", new string[] { "field1:hello", "target:test1" });
-            var test = new tc.AzFuncTransport(config, parser, registry);
+            var test = new tc.AzFuncChassis(config, parser, registry);
             var result = await test.SendAsync("{\"target\":\"test1\",\"field1\":\"hello\"}");
             Assert.IsTrue(result.IsOK);
         }

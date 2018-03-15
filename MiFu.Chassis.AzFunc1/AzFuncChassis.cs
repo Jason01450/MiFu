@@ -21,11 +21,11 @@ using System.Text;
 using System.Threading.Tasks;
 using MiFu.Core;
 
-namespace MiFu.Chassis.AzFunc
+namespace MiFu.Chassis.AzFunc1
 {
-    public class AzFuncTransport : MiFuTransportBase<string, object>, IAzFuncTransport
+    public class AzFuncChassis : MiFuTransportBase<string, object>, IAzFuncChassis
     {
-        public AzFuncTransport(IAzFuncConfig config, IMiFuMessageParser<string> parser, IMiFuRegistry<object> registry) :
+        public AzFuncChassis(IAzFuncConfig config, IMiFuMessageParser<string> parser, IMiFuRegistry<object> registry) :
             base(parser, registry)
         {
             Config = config ?? throw new ArgumentNullException(nameof(config));

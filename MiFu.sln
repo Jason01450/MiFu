@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chassis.AzFunc", "MiFu.Chas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chassis.AzFunc.Test", "MiFu.Chassis.AzFunc.Test\Chassis.AzFunc.Test.csproj", "{255181A4-8053-405D-99B0-94CEE19B7EB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chassis.AzFunc1", "MiFu.Chassis.AzFunc1\Chassis.AzFunc1.csproj", "{251B8385-43C7-4754-AA0F-C3D5B2CDCAD5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{255181A4-8053-405D-99B0-94CEE19B7EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{255181A4-8053-405D-99B0-94CEE19B7EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{255181A4-8053-405D-99B0-94CEE19B7EB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{251B8385-43C7-4754-AA0F-C3D5B2CDCAD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{251B8385-43C7-4754-AA0F-C3D5B2CDCAD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{251B8385-43C7-4754-AA0F-C3D5B2CDCAD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{251B8385-43C7-4754-AA0F-C3D5B2CDCAD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
