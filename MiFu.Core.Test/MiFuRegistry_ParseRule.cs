@@ -26,7 +26,7 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_ParseRule_NoKey()
         {
-            t.MiFuRegistry.ParseRule(":value1");
+            t.MiFuRegistry<string>.ParseRule(":value1");
             Assert.Fail();
         }
 
@@ -34,7 +34,7 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_ParseRule_NoDelimiter()
         {
-            t.MiFuRegistry.ParseRule("key1_value1");
+            t.MiFuRegistry<string>.ParseRule("key1_value1");
             Assert.Fail();
         }
 
@@ -42,35 +42,35 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_ParseRule_NoValue()
         {
-            t.MiFuRegistry.ParseRule("key1:");
+            t.MiFuRegistry<string>.ParseRule("key1:");
             Assert.Fail();
         }
 
         [TestMethod]
         public void MiFuRegistry_ParseRule_KeyIsCorrect()
         {
-            var result = t.MiFuRegistry.ParseRule("key1:value1");
+            var result = t.MiFuRegistry<string>.ParseRule("key1:value1");
             Assert.AreEqual<string>("key1", result.Key);
         }
 
         [TestMethod]
         public void MiFuRegistry_ParseRule_ValueIsCorrect()
         {
-            var result = t.MiFuRegistry.ParseRule("key1:value1");
+            var result = t.MiFuRegistry<string>.ParseRule("key1:value1");
             Assert.AreEqual<string>("value1", result.Value);
         }
 
         [TestMethod]
         public void MiFuRegistry_ParseRule_KeyIsLowerCased()
         {
-            var result = t.MiFuRegistry.ParseRule("KeY1:value1");
+            var result = t.MiFuRegistry<string>.ParseRule("KeY1:value1");
             Assert.AreEqual<string>("key1", result.Key);
         }
 
         [TestMethod]
         public void MiFuRegistry_ParseRule_ValueCaseIsUnchanged()
         {
-            var result = t.MiFuRegistry.ParseRule("key1:VaLuE1");
+            var result = t.MiFuRegistry<string>.ParseRule("key1:VaLuE1");
             Assert.AreEqual<string>("VaLuE1", result.Value);
         }
 
@@ -78,7 +78,7 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_ParseRule_ExtraTrailingColonFails()
         {
-            var result = t.MiFuRegistry.ParseRule("KeY1:value1:");
+            var result = t.MiFuRegistry<string>.ParseRule("KeY1:value1:");
             Assert.Fail();
         }
 
@@ -86,7 +86,7 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_ParseRule_ExtraColonAndValueFails()
         {
-            var result = t.MiFuRegistry.ParseRule("KeY1:value1:value2");
+            var result = t.MiFuRegistry<string>.ParseRule("KeY1:value1:value2");
             Assert.Fail();
         }
 
@@ -94,7 +94,7 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_ParseRule_WhitespaceBeforeKeyFails()
         {
-            var result = t.MiFuRegistry.ParseRule(" KeY1:value1");
+            var result = t.MiFuRegistry<string>.ParseRule(" KeY1:value1");
             Assert.Fail();
         }
 
@@ -102,7 +102,7 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_ParseRule_WhitespaceAfterKeyFails()
         {
-            var result = t.MiFuRegistry.ParseRule("KeY1 :value1");
+            var result = t.MiFuRegistry<string>.ParseRule("KeY1 :value1");
             Assert.Fail();
         }
 
@@ -110,7 +110,7 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_ParseRule_WhitespaceAfterValueFails()
         {
-            var result = t.MiFuRegistry.ParseRule("KeY1:value1 ");
+            var result = t.MiFuRegistry<string>.ParseRule("KeY1:value1 ");
             Assert.Fail();
         }
 
@@ -118,7 +118,7 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_ParseRule_WhitespaceBeforeValueFails()
         {
-            var result = t.MiFuRegistry.ParseRule("KeY1: value1");
+            var result = t.MiFuRegistry<string>.ParseRule("KeY1: value1");
             Assert.Fail();
         }
     }

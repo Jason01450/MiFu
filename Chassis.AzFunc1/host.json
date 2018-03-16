@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Jason W. Weber
+// Copyright 2018 Jason W. Weber
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,16 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.using System;
 
-using System.Dynamic;
-
-namespace MiFu.Core
 {
-    public interface IMiFuRegistry<TMessage>
-    {
-        void Register(IMiFuService<TMessage> service, string[] filters);
-
-        IMiFuService<TMessage>[] FindMatches(ExpandoObject message);
-
-        IMiFuService<TMessage>[] FindMatches(string message);
-    }
 }

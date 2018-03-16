@@ -12,11 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.using System;
 
-using MiFu.Core;
+using System.Dynamic;
 
-namespace MiFu.Chassis.AzFunc
+namespace MiFu.Core
 {
-    public interface IAzFuncChassis : IMiFuTransport<string>
+    public interface IMiFuActivationContext<TMessage>
     {
+        ///// <summary>
+        ///// The incoming message parsed into an Expando.
+        ///// </summary>
+        ///// <returns></returns>
+        //ExpandoObject GetParsedMessage();
+
+        /// <summary>
+        /// The incoming message.
+        /// </summary>
+        TMessage Message { get; }
+
+        /// <summary>
+        /// Access to the (abstracted) message transport.
+        /// </summary>
+        IMiFuTransport<TMessage> Transport { get; }
     }
 }

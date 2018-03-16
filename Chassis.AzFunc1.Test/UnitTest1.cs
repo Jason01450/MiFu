@@ -18,7 +18,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using t = MiFu.Core;
 using tc = MiFu.Chassis.AzFunc;
 
-namespace MiFu.Chassis.AzFunc.Test
+namespace MiFu.Chassis.AzFunc1.Test
 {
     [TestClass]
     public class UnitTest1

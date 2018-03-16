@@ -12,16 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.using System;
 
-using System.Dynamic;
-
 namespace MiFu.Core
 {
-    public interface IMiFuRegistry<TMessage>
+    /// <summary>
+    /// The primary interface that all MiFu microservices must implement in order to be activated
+    /// (receive messages) from the MiFu framework.
+    /// </summary>
+    /// <typeparam name="TMessage"></typeparam>
+    public interface IMiFuService<TMessage>
     {
-        void Register(IMiFuService<TMessage> service, string[] filters);
-
-        IMiFuService<TMessage>[] FindMatches(ExpandoObject message);
-
-        IMiFuService<TMessage>[] FindMatches(string message);
+        void Activate(IMiFuActivationContext<TMessage> context);
     }
 }

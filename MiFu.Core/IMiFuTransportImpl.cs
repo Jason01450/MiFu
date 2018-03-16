@@ -12,11 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.using System;
 
-using MiFu.Core;
+using System.Dynamic;
+using System.Threading.Tasks;
 
-namespace MiFu.Chassis.AzFunc
+namespace MiFu.Core
 {
-    public interface IAzFuncConfig : IMiFuConfiguration<string>
+    public interface IMiFuTransportImpl<TMessage>
     {
+        Task<Result2<int>> PublishAsync(TMessage message, ExpandoObject message2, IMiFuService<TMessage>[] receivers);
+
+        Task<Result2<TMessage>> SendAsync(TMessage message, ExpandoObject message2, IMiFuService<TMessage>[] receivers);
     }
 }

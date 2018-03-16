@@ -14,10 +14,10 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using t = MiFu.Core;
+using Moq;
 
-namespace MiFu.Core.Test
+namespace MiFu.Core1.Test
 {
     [TestClass]
     public class MiFuRegistry_Find
@@ -25,18 +25,18 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_FindMatches_When1FieldSameValue()
         {
-            var testProxy = "service proxy";
-            var test = new t.MiFuRegistry();
+            var testProxy = new Mock<t.IMiFuService<string>>(MockBehavior.Strict).Object;
+            var test = new t.MiFuRegistry<string>();
             test.Register(testProxy, new string[] { "field1:a" });
             var result = test.FindMatches("{\"field1\":\"a\"}");
-            Assert.IsTrue(result.Length == 1 && ((string)result[0]) == testProxy);
+            Assert.IsTrue(result.Length == 1 && result[0] == testProxy);
         }
 
         [TestMethod]
         public void MiFuRegistry_FindMatches_NotWhen1FieldDifferentValue()
         {
-            var testProxy = "service proxy";
-            var test = new t.MiFuRegistry();
+            var testProxy = new Mock<t.IMiFuService<string>>(MockBehavior.Strict).Object;
+            var test = new t.MiFuRegistry<string>();
             test.Register(testProxy, new string[] { "field1:a" });
             var result = test.FindMatches("{\"field1\":\"b\"}");
             Assert.IsTrue(result.Length == 0);
@@ -45,8 +45,8 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_FindMatches_NotWhen1FieldDifferentNames()
         {
-            var testProxy = "service proxy";
-            var test = new t.MiFuRegistry();
+            var testProxy = new Mock<t.IMiFuService<string>>(MockBehavior.Strict).Object;
+            var test = new t.MiFuRegistry<string>();
             test.Register(testProxy, new string[] { "field1:a" });
             var result = test.FindMatches("{\"field2\":\"a\"}");
             Assert.IsTrue(result.Length == 0);
@@ -55,29 +55,29 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_FindMatches_When1FieldWildcard()
         {
-            var testProxy = "service proxy";
-            var test = new t.MiFuRegistry();
+            var testProxy = new Mock<t.IMiFuService<string>>(MockBehavior.Strict).Object;
+            var test = new t.MiFuRegistry<string>();
             test.Register(testProxy, new string[] { "field1:*" });
             var result = test.FindMatches("{\"field1\":\"a\"}");
-            Assert.IsTrue(result.Length == 1 && ((string)result[0]) == testProxy);
+            Assert.IsTrue(result.Length == 1 && result[0] == testProxy);
         }
 
         [TestMethod]
         public void MiFuRegistry_FindMatches_When2FieldsSameValue()
         {
-            var testProxy = "service proxy";
-            var test = new t.MiFuRegistry();
+            var testProxy = new Mock<t.IMiFuService<string>>(MockBehavior.Strict).Object;
+            var test = new t.MiFuRegistry<string>();
             test.Register(testProxy, new string[] { "field1:a", "field2:b" });
             var result = test.FindMatches("{\"field1\":\"a\",\"field2\":\"b\"}");
-            Assert.IsTrue(result.Length == 1 && ((string)result[0]) == testProxy);
+            Assert.IsTrue(result.Length == 1 && result[0] == testProxy);
         }
 
 
         [TestMethod]
         public void MiFuRegistry_FindMatches_NotWhen2FieldsOnlyFirstValueSame()
         {
-            var testProxy = "service proxy";
-            var test = new t.MiFuRegistry();
+            var testProxy = new Mock<t.IMiFuService<string>>(MockBehavior.Strict).Object;
+            var test = new t.MiFuRegistry<string>();
             test.Register(testProxy, new string[] { "field1:a", "field2:b" });
             var result = test.FindMatches("{\"field1\":\"a\",\"field2\":\"c\"}");
             Assert.IsTrue(result.Length == 0);
@@ -86,8 +86,8 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_FindMatches_NotWhen2FieldsOnlySecondValueSame()
         {
-            var testProxy = "service proxy";
-            var test = new t.MiFuRegistry();
+            var testProxy = new Mock<t.IMiFuService<string>>(MockBehavior.Strict).Object;
+            var test = new t.MiFuRegistry<string>();
             test.Register(testProxy, new string[] { "field1:a", "field2:b" });
             var result = test.FindMatches("{\"field1\":\"x\",\"field2\":\"b\"}");
             Assert.IsTrue(result.Length == 0);
@@ -96,31 +96,31 @@ namespace MiFu.Core.Test
         [TestMethod]
         public void MiFuRegistry_FindMatches_When2FieldsWildcardAndSameValue()
         {
-            var testProxy = "service proxy";
-            var test = new t.MiFuRegistry();
+            var testProxy = new Mock<t.IMiFuService<string>>(MockBehavior.Strict).Object;
+            var test = new t.MiFuRegistry<string>();
             test.Register(testProxy, new string[] { "field1:*", "field2:b" });
             var result = test.FindMatches("{\"field1\":\"a\",\"field2\":\"b\"}");
-            Assert.IsTrue(result.Length == 1 && ((string)result[0]) == testProxy);
+            Assert.IsTrue(result.Length == 1 && result[0] == testProxy);
         }
 
         [TestMethod]
         public void MiFuRegistry_FindMatches_When2FieldsSameValueAndWildcard()
         {
-            var testProxy = "service proxy";
-            var test = new t.MiFuRegistry();
+            var testProxy = new Mock<t.IMiFuService<string>>(MockBehavior.Strict).Object;
+            var test = new t.MiFuRegistry<string>();
             test.Register(testProxy, new string[] { "field1:a", "field2:*" });
             var result = test.FindMatches("{\"field1\":\"a\",\"field2\":\"b\"}");
-            Assert.IsTrue(result.Length == 1 && ((string)result[0]) == testProxy);
+            Assert.IsTrue(result.Length == 1 && result[0] == testProxy);
         }
 
         [TestMethod]
         public void MiFuRegistry_FindMatches_When2FieldsBothWildcards()
         {
-            var testProxy = "service proxy";
-            var test = new t.MiFuRegistry();
+            var testProxy = new Mock<t.IMiFuService<string>>(MockBehavior.Strict).Object;
+            var test = new t.MiFuRegistry<string>();
             test.Register(testProxy, new string[] { "field1:*", "field2:*" });
             var result = test.FindMatches("{\"field1\":\"a\",\"field2\":\"b\"}");
-            Assert.IsTrue(result.Length == 1 && ((string)result[0]) == testProxy);
+            Assert.IsTrue(result.Length == 1 && result[0] == testProxy);
         }
     }
 }

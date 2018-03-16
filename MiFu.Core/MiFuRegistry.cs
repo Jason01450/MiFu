@@ -23,15 +23,15 @@ using Newtonsoft.Json.Serialization;
 
 namespace MiFu.Core
 {
-    public class MiFuRegistry : IMiFuRegistry<object>
+    public class MiFuRegistry<TMessage> : IMiFuRegistry<TMessage>
     {
         private class RoutingEntry
         {
             public KeyValuePair<string, string>[] Rules { get; private set; }
 
-            public object Service { get; private set; }
+            public IMiFuService<TMessage> Service { get; private set; }
 
-            public RoutingEntry(KeyValuePair<string, string>[] rules, object service)
+            public RoutingEntry(KeyValuePair<string, string>[] rules, IMiFuService<TMessage> service)
             {
 
                 Rules = rules;
@@ -71,7 +71,7 @@ namespace MiFu.Core
 
         public static readonly string RegEx = @"^([a-zA-Z](\-?[a-zA-Z0-9]+)*):(([a-zA-Z](\-?[a-zA-Z0-9]+)*)|(([a-zA-Z](\-?[a-zA-Z0-9]+)*)\-?\*)|\*)$";
 
-        public void Register(object service, string[] filters)
+        public void Register(IMiFuService<TMessage> service, string[] filters)
         {
             if (service == null)
                 throw new ArgumentNullException(nameof(service));
@@ -102,9 +102,9 @@ namespace MiFu.Core
             }
         }
 
-        private static readonly object[] NoMatches = new object[0];
+        private static readonly IMiFuService<TMessage>[] NoMatches = new IMiFuService<TMessage>[0];
 
-        public object[] FindMatches(ExpandoObject message)
+        public IMiFuService<TMessage>[] FindMatches(ExpandoObject message)
         {
             var matches = NoMatches;
             try
@@ -127,7 +127,7 @@ namespace MiFu.Core
             return matches;
         }
 
-        public object[] FindMatches(string message)
+        public IMiFuService<TMessage>[] FindMatches(string message)
         {
             ExpandoObject cast = JsonConvert.DeserializeObject<ExpandoObject>(message, new JsonSerializerSettings
             {

@@ -12,16 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.using System;
 
-using System.Dynamic;
+using System;
+using MiFu.Core;
 
-namespace MiFu.Core
+namespace MiFu.Chassis.AzFunc1
 {
-    public interface IMiFuRegistry<TMessage>
+    public class AzFuncActivationContext : IMiFuActivationContext<string>
     {
-        void Register(IMiFuService<TMessage> service, string[] filters);
+        public string Message { get; private set; }
 
-        IMiFuService<TMessage>[] FindMatches(ExpandoObject message);
+        public IMiFuTransport<string> Transport { get; private set; }
 
-        IMiFuService<TMessage>[] FindMatches(string message);
+        public AzFuncActivationContext(string message, IMiFuTransport<string> transport)
+        {
+            Message = message ?? throw new ArgumentNullException(nameof(message));
+            Transport = transport ?? throw new ArgumentNullException(nameof(transport));
+        }
     }
 }

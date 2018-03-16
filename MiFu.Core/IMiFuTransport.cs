@@ -19,16 +19,16 @@ namespace MiFu.Core
     public interface IMiFuTransport<TMessage>
     {
         /// <summary>
-        /// Sends a message asynchronously e.g. to a service bus topic. This method ends in Async as per the MS
+        /// Publishes a message asynchronously e.g. to a service bus topic. This method ends in Async per the MS
         /// design guidelines for asyncronous methods.
         /// </summary>
         /// <remarks>NOTE: This requires the message to be self-describing with respect to destination.</remarks>
         /// <param name="message"></param>
         /// <returns></returns>
-        Task<Result2<int>> PostAsync(TMessage message);
+        Task<Result2<int>> PublishAsync(TMessage message);
 
         /// <summary>
-        /// Sends a message synchronously e.g. to query another service. This method ends in Async as per the MS
+        /// Sends a message synchronously e.g. to query another service. This method ends in Async per the MS
         /// design guidelines for asyncronous methods.
         /// </summary>
         /// <remarks>NOTE: This requires the message to be self-describing with respect to destination.</remarks>

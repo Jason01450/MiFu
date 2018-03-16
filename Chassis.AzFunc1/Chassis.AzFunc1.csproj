@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <AssemblyName>MiFu.Chassis.AzFunc1</AssemblyName>
+    <RootNamespace>MiFu.Chassis.AzFunc1</RootNamespace>
+    <Version>0.5.0-beta</Version>
+    <Authors>Jason W. Weber</Authors>
+    <Company>ason W. Weber</Company>
+    <Product>MiFu Microservice Framework</Product>
+    <Description>Host microservices in Azure (App Services, Functions) using HTTP and Service Bus for message transport.</Description>
+    <Copyright>Copyright © 2018 Jason W. Weber</Copyright>
+    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Jason01450/MiFu</PackageProjectUrl>
+    <PackageId>MiFu.Chassis.AzFunc1</PackageId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MiFu.Core\Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+</Project>

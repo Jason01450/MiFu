@@ -15,7 +15,7 @@
 using MiFu.Core;
 using System.Collections.Generic;
 
-namespace MiFu.Chassis.AzFunc.Test
+namespace MiFu.Chassis.AzFunc1.Test
 {
     public class UnitTestConfig : IAzFuncConfig
     {
