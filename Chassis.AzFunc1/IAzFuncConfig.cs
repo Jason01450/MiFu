@@ -18,5 +18,6 @@ namespace MiFu.Chassis.AzFunc1
 {
     public interface IAzFuncConfig : IMiFuConfiguration<string>
     {
+        Result2<string> GetRequiredValue(string name, string format = null);
     }
 }

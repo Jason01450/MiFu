@@ -23,26 +23,46 @@ using MiFu.Core;
 
 namespace MiFu.Chassis.AzFunc1
 {
-    public interface IAzFuncTransportImpl : IMiFuTransportImpl<string>
-    {
-    }
-
     public class AzFuncTransportImpl : IAzFuncTransportImpl
     {
-        public async Task<Result2<int>> PublishAsync(string message, ExpandoObject message2, IMiFuService<string>[] receivers)
+        public AzFuncTransportImpl(IAzFuncLogger log, IAzFuncConfig config)
         {
-            // TODO: Implement the local (dev) case.
-            if (receivers.Length > 0)
-                throw new System.NotImplementedException();
+            Log = log ?? throw new ArgumentNullException(nameof(log));
+            Config = config ?? throw new ArgumentNullException(nameof(config));
+        }
 
+        public Result2<string> GetTopicUrlFromConfiguration(ExpandoObject message2)
+        {
             // get the target topic queue name
             var topicName = GetRequiredMessageField(message2, "topic", "published");
             if (!topicName.IsOK)
-                return Result2<int>.Fail(topicName.Error);
+                return topicName;
 
             // get the target topic url from configuration
-            var environmentKey = $"TOPIC-URL-{topicName}".ToUpper();
-            var topicUrl = GetRequiredConfiguredValue(environmentKey);
+            var topicUrl = Config.GetRequiredValue(topicName.Value, "TOPIC-URL-{0}");
+            return topicUrl;
+        }
+
+
+        public Result2<string> GetServiceUrlFromConfiguration(ExpandoObject message2)
+        {
+            // get the target service name
+            var serviceName = GetRequiredMessageField(message2, "target", "sent");
+            if (!serviceName.IsOK)
+                return serviceName;
+
+            // get the target service address from configuration
+            var serviceUrl = Config.GetRequiredValue(serviceName.Value, "SERVICE-URL-{0}");
+            return serviceUrl;
+        }
+
+        public async Task<Result2<int>> PublishAsync(string message, ExpandoObject message2, IMiFuService<string>[] receivers)
+        {
+            // TODO: Implement the local (dev) case.
+            if (receivers != null && receivers.Length > 0)
+                throw new System.NotImplementedException();
+
+            var topicUrl = GetTopicUrlFromConfiguration(message2);
             if (!topicUrl.IsOK)
                 return Result2<int>.Fail(topicUrl.Error);
 
@@ -57,14 +77,7 @@ namespace MiFu.Chassis.AzFunc1
             if (receivers.Length > 0)
                 throw new System.NotImplementedException();
 
-            // get the target service name
-            var serviceName = GetRequiredMessageField(message2, "target", "sent");
-            if (!serviceName.IsOK)
-                return Result2<string>.Fail(serviceName.Error);
-
-            // get the target service address from configuration
-            var environmentKey = $"SERVICE-URL-{serviceName}".ToUpper();
-            var serviceUrl = GetRequiredConfiguredValue(environmentKey);
+            var serviceUrl = GetServiceUrlFromConfiguration(message2);
             if (!serviceUrl.IsOK)
                 return Result2<string>.Fail(serviceUrl.Error);
 
@@ -96,18 +109,6 @@ namespace MiFu.Chassis.AzFunc1
             return Result2<string>.OK(fieldValue);
         }
 
-        public Result2<string> GetRequiredConfiguredValue(string name)
-        {
-            // see https://social.msdn.microsoft.com/Forums/azure/en-US/06afdcb6-349b-4229-b72c-57617705232f/reading-application-settings-from-azure-function?forum=AzureFunctions
-            // for how to access environment variables in Azure Functions.
-            // NOTE: This appears to work when running locally, too--nice!
-            var value = Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
-            if (string.IsNullOrWhiteSpace(value))
-                return Result2<string>.Fail($"Required '{name}' environment variable empty or missing.");
-
-            return Result2<string>.OK(value);
-        }
-
         public async Task<Result2<string>> DoSendAsync(string message, string targetUrl)
         {
             try
@@ -130,16 +131,20 @@ namespace MiFu.Chassis.AzFunc1
             {
                 // TODO: Log this proerly!
                 var msg = $"{ex.HResult}:{ex.InnerException?.Message ?? "Something went wrong"}";
-                Debug.WriteLine("[TRANSPORT]:" + msg);
+                Debug.WriteLine($"[TRANSPORT]:[{targetUrl}]:" + msg);
                 return Result2<string>.Fail(msg);
             }
             catch (TaskCanceledException /*ex*/)
             {
                 // TODO: Log this proerly!
                 var msg = $"Send message timed out";
-                Debug.WriteLine("[TRANSPORT]:" + msg);
+                Debug.WriteLine($"[TRANSPORT]:[{targetUrl}]:" + msg);
                 return Result2<string>.Fail(msg);
             }
         }
+
+        public IAzFuncConfig Config { get; private set; }
+
+        public IAzFuncLogger Log { get; private set; }
     }
 }

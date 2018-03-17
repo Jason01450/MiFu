@@ -65,9 +65,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="UnitTest1.cs" />
+    <Compile Include="AzFuncTransportImpl.cs" />
+    <Compile Include="AzFuncConfigTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="UnitTestConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

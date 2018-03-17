@@ -14,6 +14,13 @@
 
 namespace MiFu.Core
 {
+    /// <summary>
+    /// Utility class used to indicate both [1] the success/failure of a method and
+    /// [2] the result of that method. In the success case the .Error property is null.
+    /// In the failure case, the .Value property is the default, and .Error contains
+    /// an error message as a string.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Result2<T>
     {
         public string Error { get; private set; }
@@ -41,6 +48,12 @@ namespace MiFu.Core
         public static Result2<T> OK(T value)
         {
             return new Result2<T>(value);
+        }
+
+        public override string ToString()
+        {
+            var status = IsOK ? "OK" : "ERR";
+            return $"{status}:{Value}";
         }
     }
 }

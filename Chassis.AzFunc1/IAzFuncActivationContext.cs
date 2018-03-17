@@ -12,21 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.using System;
 
-using System;
 using MiFu.Core;
 
 namespace MiFu.Chassis.AzFunc1
 {
-    public class AzFuncActivationContext : IAzFuncActivationContext
+    public interface IAzFuncActivationContext : IMiFuActivationContext<string>
     {
-        public string Message { get; private set; }
-
-        public IMiFuTransport<string> Transport { get; private set; }
-
-        public AzFuncActivationContext(string message, IMiFuTransport<string> transport)
-        {
-            Message = message ?? throw new ArgumentNullException(nameof(message));
-            Transport = transport ?? throw new ArgumentNullException(nameof(transport));
-        }
     }
 }

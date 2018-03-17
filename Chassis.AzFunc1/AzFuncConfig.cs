@@ -19,17 +19,37 @@ namespace MiFu.Chassis.AzFunc1
 {
     public class AzFuncConfig : IAzFuncConfig
     {
-        public Result2<string> Get(string key)
+        public Result2<string> GetRequiredValue(string name)
+        {
+            GuardName(name);
+            return GetEnvironmentVariable(name);
+        }
+
+        public Result2<string> GetRequiredValue(string name, string format = null)
+        {
+            GuardName(name);
+            if (!string.IsNullOrEmpty(format))
+                name = string.Format(format, name).ToUpper();
+            return GetEnvironmentVariable(name);
+        }
+
+        private void GuardName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentOutOfRangeException(nameof(name),
+                    $"Must contain one or more non-whitespace characters.");
+        }
+
+        private Result2<string> GetEnvironmentVariable(string name)
         {
             // see https://social.msdn.microsoft.com/Forums/azure/en-US/06afdcb6-349b-4229-b72c-57617705232f/reading-application-settings-from-azure-function?forum=AzureFunctions
             // for how to access environment variables in Azure Functions.
             // NOTE: This appears to work when running locally, too--nice!
-            var environmentKey = $"SERVICE-URL-{key}".ToUpper();
-            var targetUrl = Environment.GetEnvironmentVariable(environmentKey, EnvironmentVariableTarget.Process);
-            if (string.IsNullOrWhiteSpace(targetUrl))
-                return Result2<string>.Fail($"Required '{environmentKey}' environment variable missing.");
+            var value = Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
+            if (string.IsNullOrWhiteSpace(value))
+                return Result2<string>.Fail($"Required '{name}' environment variable empty or missing.");
 
-            return Result2<string>.OK(targetUrl);
+            return Result2<string>.OK(value);
         }
     }
 }

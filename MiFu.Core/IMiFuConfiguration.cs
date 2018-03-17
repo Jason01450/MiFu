@@ -16,6 +16,6 @@ namespace MiFu.Core
 {
     public interface IMiFuConfiguration<T>
     {
-        Result2<T> Get(string key);
+        Result2<string> GetRequiredValue(string name);
     }
 }
