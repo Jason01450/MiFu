@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.using System;
 
+using System.Dynamic;
 using System.Threading.Tasks;
 
 namespace MiFu.Core
@@ -24,8 +25,10 @@ namespace MiFu.Core
         /// </summary>
         /// <remarks>NOTE: This requires the message to be self-describing with respect to destination.</remarks>
         /// <param name="message"></param>
+        /// <param name="message2">The inbound message converted into an ExpandoObject.</param>
+        /// <param name="receivers"></param>
         /// <returns></returns>
-        Task<Result2<int>> PublishAsync(TMessage message);
+        Task<Result2<int>> PublishAsync(TMessage message, ExpandoObject message2, IMiFuService<TMessage>[] receivers);
 
         /// <summary>
         /// Sends a message synchronously e.g. to query another service. This method ends in Async per the MS
@@ -33,7 +36,9 @@ namespace MiFu.Core
         /// </summary>
         /// <remarks>NOTE: This requires the message to be self-describing with respect to destination.</remarks>
         /// <param name="message"></param>
+        /// <param name="message2">The inbound message converted into an ExpandoObject.</param>
+        /// <param name="receivers"></param>
         /// <returns></returns>
-        Task<Result2<TMessage>> SendAsync(TMessage message);
+        Task<Result2<TMessage>> SendAsync(TMessage message, ExpandoObject message2, IMiFuService<TMessage>[] receivers);
     }
 }

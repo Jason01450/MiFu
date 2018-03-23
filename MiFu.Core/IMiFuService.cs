@@ -21,6 +21,6 @@ namespace MiFu.Core
     /// <typeparam name="TMessage"></typeparam>
     public interface IMiFuService<TMessage>
     {
-        void Activate(IMiFuActivationContext<TMessage> context);
+        object Activate(IMiFuActivationContext<TMessage> context);
     }
 }
