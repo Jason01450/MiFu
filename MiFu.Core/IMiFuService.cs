@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.using System;
 
+using System.Threading.Tasks;
+
 namespace MiFu.Core
 {
     /// <summary>
@@ -21,6 +23,18 @@ namespace MiFu.Core
     /// <typeparam name="TMessage"></typeparam>
     public interface IMiFuService<TMessage> where TMessage : class
     {
+        /// <summary>
+        /// Syncronous activation e.g. neither thread nor I/O bound.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         TMessage Activate(IMiFuActivationContext<TMessage> context);
+
+        /// <summary>
+        /// Asyncronous activation
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        Task<TMessage> ActivateAsync(IMiFuActivationContext<TMessage> context);
     }
 }

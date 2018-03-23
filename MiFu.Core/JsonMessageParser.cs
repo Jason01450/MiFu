@@ -44,6 +44,12 @@ namespace MiFu.Core
             return target;
         }
 
+        public string Serialize(ExpandoObject message)
+        {
+            var json = JsonConvert.SerializeObject(message, settings);
+            return json;
+        }
+
         private static readonly JsonSerializerSettings settings =
             new JsonSerializerSettings()
             {
