@@ -26,7 +26,7 @@ using t = MiFu.Chassis.AzFunc1;
 namespace MiFu.Chassis.AzFunc1.Test
 {
     [TestClass]
-    public class AzFuncTransportImplTests
+    public class AzFuncTransportTests
     {
         private class TestTuple
         {
@@ -34,11 +34,11 @@ namespace MiFu.Chassis.AzFunc1.Test
 
             public Mock<t.IAzFuncConfig> MockConfig = new Mock<t.IAzFuncConfig>(MockBehavior.Strict);
 
-            public t.AzFuncTransportImpl Inst { get; private set; }
+            public t.AzFuncTransport Inst { get; private set; }
 
             public TestTuple()
             {
-                Inst = new t.AzFuncTransportImpl(MockLog.Object, MockConfig.Object);
+                Inst = new t.AzFuncTransport(MockLog.Object, MockConfig.Object);
 
             }
         }

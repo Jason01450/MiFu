@@ -16,7 +16,7 @@ using MiFu.Core;
 
 namespace MiFu.Chassis.AzFunc1
 {
-    public interface IAzFuncTransportImpl : IMiFuTransportImpl<string>
+    public interface IAzFuncTransport : IMiFuTransport<string>
     {
     }
 }

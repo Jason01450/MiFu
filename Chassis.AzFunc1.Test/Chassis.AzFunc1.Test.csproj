@@ -65,7 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AzFuncTransportImpl.cs" />
+    <Compile Include="AzFuncTransportTests.cs" />
     <Compile Include="AzFuncConfigTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

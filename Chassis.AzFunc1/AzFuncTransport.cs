@@ -23,9 +23,9 @@ using MiFu.Core;
 
 namespace MiFu.Chassis.AzFunc1
 {
-    public class AzFuncTransportImpl : IAzFuncTransportImpl
+    public class AzFuncTransport : IAzFuncTransport
     {
-        public AzFuncTransportImpl(IAzFuncLogger log, IAzFuncConfig config)
+        public AzFuncTransport(IAzFuncLogger log, IAzFuncConfig config)
         {
             Log = log ?? throw new ArgumentNullException(nameof(log));
             Config = config ?? throw new ArgumentNullException(nameof(config));
