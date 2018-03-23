@@ -53,7 +53,7 @@ namespace MiFu.Core
         public override string ToString()
         {
             var status = IsOK ? "OK" : "ERR";
-            return $"{status}:{Value}";
+            return $"{status}:" + (IsOK ? Value.ToString() : Error);
         }
     }
 }
