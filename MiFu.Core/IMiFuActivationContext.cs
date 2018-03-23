@@ -16,7 +16,7 @@ using System.Dynamic;
 
 namespace MiFu.Core
 {
-    public interface IMiFuActivationContext<TMessage>
+    public interface IMiFuActivationContext<TMessage> where TMessage : class
     {
         ///// <summary>
         ///// The incoming message parsed into an Expando.

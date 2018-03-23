@@ -16,7 +16,7 @@ using System.Dynamic;
 
 namespace MiFu.Core
 {
-    public interface IMiFuRegistry<TMessage>
+    public interface IMiFuRegistry<TMessage> where TMessage : class
     {
         void Register(IMiFuService<TMessage> service, string[] filters);
 

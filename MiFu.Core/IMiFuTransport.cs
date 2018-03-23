@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace MiFu.Core
 {
-    public interface IMiFuTransport<TMessage>
+    public interface IMiFuTransport<TMessage> where TMessage : class
     {
         /// <summary>
         /// Publishes a message asynchronously e.g. to a service bus topic. This method ends in Async per the MS

@@ -19,8 +19,8 @@ namespace MiFu.Core
     /// (receive messages) from the MiFu framework.
     /// </summary>
     /// <typeparam name="TMessage"></typeparam>
-    public interface IMiFuService<TMessage>
+    public interface IMiFuService<TMessage> where TMessage : class
     {
-        object Activate(IMiFuActivationContext<TMessage> context);
+        TMessage Activate(IMiFuActivationContext<TMessage> context);
     }
 }

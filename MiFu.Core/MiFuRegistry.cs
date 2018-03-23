@@ -23,7 +23,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace MiFu.Core
 {
-    public class MiFuRegistry<TMessage> : IMiFuRegistry<TMessage>
+    public class MiFuRegistry<TMessage> : IMiFuRegistry<TMessage> where TMessage : class
     {
         private class RoutingEntry
         {
