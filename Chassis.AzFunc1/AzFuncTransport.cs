@@ -62,28 +62,28 @@ namespace MiFu.Chassis.AzFunc1
             if (receivers != null && receivers.Length > 0)
                 throw new System.NotImplementedException();
 
-            var topicUrl = GetTopicUrlFromConfiguration(message2);
-            if (!topicUrl.IsOK)
-                return Result2<int>.Fail(topicUrl.Error);
+            var urlResult = GetTopicUrlFromConfiguration(message2);
+            if (!urlResult.IsOK)
+                return Result2<int>.Fail(urlResult.Error);
 
             // ship it!
-            var result1 = await DoSendAsync(message, topicUrl.Value);
+            var result1 = await DoSendAsync(message, urlResult.Value);
             return result1.IsOK ? Result2<int>.OK(1) : Result2<int>.Fail(result1.Error);
         }
 
         public async Task<Result2<string>> SendAsync(string message, ExpandoObject message2, IMiFuService<string>[] receivers)
         {
             // TODO: Implement the local (dev) case.
-            if (receivers.Length > 0)
+            if (receivers != null && receivers.Length > 0)
                 throw new System.NotImplementedException();
 
-            var serviceUrl = GetServiceUrlFromConfiguration(message2);
-            if (!serviceUrl.IsOK)
-                return Result2<string>.Fail(serviceUrl.Error);
+            var urlResult = GetServiceUrlFromConfiguration(message2);
+            if (!urlResult.IsOK)
+                return urlResult;
 
             // ship it!
-            var result = await DoSendAsync(message, serviceUrl.Value);
-            return result;
+            var sendResult = await DoSendAsync(message, urlResult.Value);
+            return sendResult;
         }
 
         public Result2<string> GetRequiredMessageField(ExpandoObject message2, string fieldName, string errorVerb)
