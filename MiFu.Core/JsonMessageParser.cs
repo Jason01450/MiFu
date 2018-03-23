@@ -31,12 +31,23 @@ namespace MiFu.Core
             if (message == null)
                 throw new ArgumentNullException(nameof(message));
 
-            ExpandoObject target = JsonConvert.DeserializeObject<ExpandoObject>(message,
-                new JsonSerializerSettings
-                {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver()
-                });
+            ExpandoObject target = JsonConvert.DeserializeObject<ExpandoObject>(message, settings);
             return target;
         }
+
+        public TMessage Deserialize<TMessage>(string message)
+        {
+            if (message == null)
+                throw new ArgumentNullException(nameof(message));
+
+            TMessage target = JsonConvert.DeserializeObject<TMessage>(message, settings);
+            return target;
+        }
+
+        private static readonly JsonSerializerSettings settings =
+            new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
     }
 }
